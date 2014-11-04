@@ -1,0 +1,23 @@
+{
+  "name": "cronbot",
+  "version": "0.0.0",
+  "description": "a cron utility for hubot",
+  "main": "index.js",
+  "scripts": {
+    "test": "console.log(\"welcome to cronbot\")"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:darthneel/cronbot.git"
+  },
+  "keywords": [
+    "hubot",
+    "cron"
+  ],
+  "author": "Neel Patel <neelp22@gmail.com> (https://github.com/darthneel)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/darthneel/cronbot/issues"
+  },
+  "homepage": "https://github.com/darthneel/cronbot"
+}
