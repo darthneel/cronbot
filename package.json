@@ -2,13 +2,13 @@
   "name": "cronbot",
   "version": "0.0.0",
   "description": "a cron utility for hubot",
-  "main": "index.js",
+  "main": "./lib/index",
   "scripts": {
     "test": "console.log(\"welcome to cronbot\")"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:darthneel/cronbot.git"
+    "url": "https://github.com/darthneel/cronbot"
   },
   "keywords": [
     "hubot",
@@ -19,5 +19,10 @@
   "bugs": {
     "url": "https://github.com/darthneel/cronbot/issues"
   },
-  "homepage": "https://github.com/darthneel/cronbot"
+  "homepage": "https://github.com/darthneel/cronbot",
+  "dependencies": {
+    "cron": "^1.0.5",
+    "underscore": "^1.7.0",
+    "time": "^0.11.0"
+  }
 }
