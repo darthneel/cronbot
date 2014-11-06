@@ -10,22 +10,37 @@ exportObj = (obj) ->
 exports = module.exports = exportObj;
 exports.test = exportObj;
 
+
+exportObj.create = (pattern, func, timezone) ->
+	robot.emit "cron created", {
+		pattern:	pattern,
+		func:	func,e
+		timezone: timezone
+	}
+
+module.exports = (robot) ->
+	robot.brain.data.cronJobs ?= {}
+
+  save = (obj) ->
+  robot.brain.data.cronJobs.push obj
+
+	robot.on "cron created", (cron) ->
+		job = new Job cron.pattern, cron.func, cron.timezone
+		save job
+		job.startJob()	
+
+
 class Job
-  constructor: (@pattern, @func, @timezone @robot) ->
-    @id = Math.floor(Math.random() * 10000) + Date.now()
-    this.save()
-    @robot.brain.data.cronJobs = []
+  constructor: (@pattern, @func, @timezone) ->
+    @id = this.generateID()
 
-  save: () ->
-    @robot.brain.data.cronJobs ?= []
+  generateID: () ->
+    now = Date.now().toString()
+    now.splice(now.length - 7, now.length)
 
-    job = _.find @robot.brain.data.cronJobs, => (task) 
-    	task.func == this.task
-    if job 
-    	job.startJob()
-    else	
-    	@robot.brain.data.cronJobs.push this
-    	this.startJob()
+  save: (robot) ->
+    console.log "in save"
+    robot.brain.data.cronJobs.push this
 
   startJob: () ->
     @cronJob.start()
@@ -35,19 +50,15 @@ class Job
 
   createCron: (optionsHash) ->
     console.log "in create"
-    func = @func
     @cronJob = new CronJob @pattern, =>
       @func(optionsHash)
     , ->
       console.log "job ended"
     , false
+    , @timezone
     console.log "finished creating"
 
-  test: () ->
-  	console.log "working!"
 
-exportObj.create = (pattern, func, robot) ->
-	new Job pattern, func, robot
 
 
 
